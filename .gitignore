@@ -1,5 +1,5 @@
 *.o
 a.out
-music
+main
 #executable we can change this in the future
 *~
