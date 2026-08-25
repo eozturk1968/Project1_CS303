@@ -1,0 +1,5 @@
+*.o
+a.out
+music
+#executable we can change this in the future
+*~
