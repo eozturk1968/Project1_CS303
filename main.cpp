@@ -4,7 +4,21 @@ This program stores a music library using nested maps, populating them from inpu
 It calculates the listening time  of each artist, album, and song
 Displays every artist with their albums and songs
 */
+/*
+Sample input
+Countdown 2:25 Coltrane,_John Giant_Steps Jazz 3
+Down_In_Brazil 6:07 Walton,_Cedar Naima Jazz 4
+Giant_Steps 4:02 Puente,_Tito El_Rey Jazz 5
+Giant_Steps 4:46 Coltrane,_John Giant_Steps Jazz 1
+Mr._P.C. 7:02 Coltrane,_John Giant_Steps Jazz 7
+Naima 4:24 Coltrane,_John Giant_Steps Jazz 6
+Naima 5:16 Lyle,_Bobby Night_Breeze Jazz 5
+Naima 5:36 Tjader,_Cal A_Fuego_Vivo Jazz 6
+Naima 7:49 Walton,_Cedar Naima Jazz 6
+Naima 8:38 Walton,_Cedar Eastern_Rebellion Jazz 2
+This_Guy's_In_Love_With_You 8:10 Walton,_Cedar Naima Jazz 2
 
+*/
 
 #include <iostream>
 #include <map>
