@@ -2,10 +2,10 @@ CXX=		g++
 CXXFLAGS=	-g -Wall -std=gnu++11
 SHELL=		bash
 
-all:		main
+all:		lib_info.cpp
 
-main:	main.cpp
+main:	lib_info.cpp
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
 clean:
-	rm -f main
+	rm -f lib_info.cpp

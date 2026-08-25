@@ -1,5 +1,4 @@
 *.o
 a.out
-main
-#executable we can change this in the future
+lib_info.cpp
 *~
