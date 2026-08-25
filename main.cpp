@@ -25,7 +25,7 @@ This_Guy's_In_Love_With_You 8:10 Walton,_Cedar Naima Jazz 2
 #include <string>
 // used to read file
 #include <fstream>
-// used to control output
+// used to control output formatting
 #include <iomanip>
 
 using namespace std;
@@ -49,11 +49,29 @@ struct Artist {
 	string name;
 	int time;
 	int nsongs;
-}
+};
 
 int main(int argc, char const *argv[])
 {
 	/* code */
+	string fileName = argv[1];
+	ifstream musicFile;
+	musicFile.open(fileName);
+	if (!musicFile.is_open() || argc < 2) {
+		cout << "Invalid filename: ' " << fileName << " '.\n";
+		return 1; 
+	}
+	// read in file data
 
+
+	musicFile.close();
 	return 0;
 }
+
+
+
+
+
+
+
+
