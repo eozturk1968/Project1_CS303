@@ -40,8 +40,10 @@ struct Song {
 struct Album {
 	map<int, Song> songs;
 	string name;
+	string genre;
 	int time;
 	int nsongs;
+
 };
 // has map of albums, total time, artist name, and number of songs
 struct Artist {
@@ -58,22 +60,12 @@ int convertTime(string time) {
 	return min+sec;
 }
 
+int parseArtist(string fullName) {
+
+}
+
 int main(int argc, char const *argv[])
 {
-	/* code */
-	if (argc != 2) return 1;
-	ifstream musicFile;
-	string filename = argv[1];
-	musicFile.open(filename);
-	Song newSong;
-	if (!musicFile.is_open()) return 1;
-	// begin consuming input from file
-	while (musicFile >> newSong.name) {
-		string t;
-		musicFile >> t;
-		newSong.time = convertTime(t);
-
-	}
 
 	return 0;
 }
