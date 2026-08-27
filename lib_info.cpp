@@ -40,8 +40,6 @@ struct Song {
 struct Album {
 	map<int, Song> songs;
 	string name;
-
-
 	int time = 0;
 
 };
@@ -61,9 +59,6 @@ void underscores_to_spaces(string &s) {
 		}
 	}
 }
-
-
-
 
 // converts time from mins:secs to number of seconds and returns it
 // this function makes the assumption that mins < 10 for a song (m:ss) (mm:ss) will not work
@@ -135,26 +130,19 @@ int main(int argc, char const *argv[])
 	} 
 	musicFile.close();
 
-	/*
-	   while (musicFile >> newSong.name) "Dave_Matthews" --> "Dave M{
-	   string t;
-	   musicFile >> t;
-	   newSong.time = convertTime(t);	
-
-*/
-
-	for (auto &ap : artists) {
-		Artist &ar = ap.second;
-		cout << ar.name << ": " << ar.nsongs << ", " << to_mmss(ar.time) << endl;
-
-		for (auto &bp : ar.albums) {
-			Album &al = bp.second;
-			cout << "        " << al.name << ": " << al.songs.size()
+	for (map<string, Artist>::iterator it = artists.begin(); it != artists.end(); ++it) {
+		Artist &ar = it->second;
+		cout << it->first << ": " << ar.nsongs << ", " << to_mmss(ar.time) << endl;
+		for (map<string, Album>::iterator it2 = ar.albums.begin(); it2 != ar.albums.end(); ++it2)
+		{
+			Album &al = it2->second;
+			cout << "        " << it2->first << ": " << al.songs.size()
 				<< ", " << to_mmss(al.time) << endl;
-			for (auto &sp : al.songs) {
+			for (map<int, Song>::iterator it3 = al.songs.begin(); it3 != al.songs.end(); ++it3) 
+			{
+				int trackNo = it3->first;
+				Song &sg = it3->second;
 
-				int trackNo = sp.first;
-				Song &sg = sp.second;
 				cout << "                " << trackNo << ". " << sg.title
 					<< ": " << to_mmss(sg.time) << endl;
 			}
