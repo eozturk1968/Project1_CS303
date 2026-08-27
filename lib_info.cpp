@@ -50,10 +50,36 @@ struct Artist {
 	int time;
 	int nsongs;
 };
+// converts time from mins:secs to number of seconds and returns it
+// this function makes the assumption that mins < 10 for a song (m:ss) (mm:ss) will not work
+int convertTime(string time) {
+	int min = int(time.substr(0, 1)) * 60;
+	int sec = int(time.substr(3, 4));
+	return min+sec;
+}
 
 int main(int argc, char const *argv[])
 {
 	/* code */
+	if (argc != 2) return 1;
+	ifstream musicFile;
+	string filename = argv[1];
+	musicFile.open(filename);
+	Song newSong;
+	if (!musicFile.is_open()) return 1;
+	// begin consuming input from file
+	while (musicFile >> newSong.name) {
+		string t;
+		musicFile >> t;
+		newSong.time = convertTime(t);
+
+	}
 
 	return 0;
 }
+
+
+
+
+
+
