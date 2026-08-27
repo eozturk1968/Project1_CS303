@@ -1,4 +1,4 @@
-*.o
-a.out
-lib_info.cpp
-*~
+# this gitignore ignores everything but lib_info and Makefile
+*
+!lib_info.cpp
+!Makefile
