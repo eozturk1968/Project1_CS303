@@ -100,8 +100,6 @@ int main(int argc, char const *argv[])
 
 	while (musicFile >> title >> time >> artist >> album >> genre >> track) {
 
-		// TODO
-		// 1. title, artist, album icin underscores_to_spaces cagir
 		underscores_to_spaces(title);
 		underscores_to_spaces(artist);
 		underscores_to_spaces(album);
@@ -121,33 +119,25 @@ int main(int argc, char const *argv[])
 		ar.time += seconds;
 		ar.nsongs++;
 
-		// 2. int seconds = to_seconds(timestr);
-		// 3. Artist &ar = artists[artist];  ar.name = artist;
-		//    Album  &al = ar.albums[album]; al.name = album;
-		// 4. al.songs[track].title = title;  al.songs[track].time = seconds;
-		// 5. al.time += seconds;  ar.time += seconds;  ar.nsongs++;
 	} 
 	musicFile.close();
-
 	for (map<string, Artist>::iterator it = artists.begin(); it != artists.end(); ++it) {
 		Artist &ar = it->second;
 		cout << it->first << ": " << ar.nsongs << ", " << to_mmss(ar.time) << endl;
-		for (map<string, Album>::iterator it2 = ar.albums.begin(); it2 != ar.albums.end(); ++it2)
-		{
+
+		for (map<string, Album>::iterator it2 = ar.albums.begin(); it2 != ar.albums.end(); ++it2) {
 			Album &al = it2->second;
 			cout << "        " << it2->first << ": " << al.songs.size()
 				<< ", " << to_mmss(al.time) << endl;
-			for (map<int, Song>::iterator it3 = al.songs.begin(); it3 != al.songs.end(); ++it3) 
-			{
+
+			for (map<int, Song>::iterator it3 = al.songs.begin(); it3 != al.songs.end(); ++it3) {
 				int trackNo = it3->first;
 				Song &sg = it3->second;
-
 				cout << "                " << trackNo << ". " << sg.title
 					<< ": " << to_mmss(sg.time) << endl;
 			}
 		}
 	}
-
 	return 0;
 }
 
