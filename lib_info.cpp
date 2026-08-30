@@ -25,17 +25,16 @@ Displays every artist with their albums and songs
 #include <string>
 // used to read file
 #include <fstream>
-// used to control output
+
 
 using namespace std;
 
-// has name and length of a song
+// Title and length (in seconds) of one song
 struct Song {
 	string title;
 	int time = 0;
 };
-
-// has map of songs, album name, album length, and number of songs
+// Songs keyed by track number, plus the album name and total time
 struct Album {
 	map<int, Song> songs;
 	string name;
@@ -58,10 +57,8 @@ void underscores_to_spaces(string &s) {
 		}
 	}
 }
-
-// converts time from mins:secs to number of seconds and returns it
-// this function makes the assumption that mins < 10 for a song (m:ss) (mm:ss) will not work
-int convertTime(string time) {  // chage it to stdoi
+// Converts "m:ss" or "mm:ss" to a total number of seconds.
+int convertTime(string time) {
 	int pos = time.find(':');
 	int min = stoi(time.substr(0, pos));
 	int sec = stoi(time.substr(pos + 1));
@@ -70,7 +67,7 @@ int convertTime(string time) {  // chage it to stdoi
 
 
 
-// converts total time in seconds to mins:secs
+
 string to_mmss(int total){
 	string sec = to_string(total % 60);
 	if (sec.size() == 1) sec = "0" + sec;
@@ -80,9 +77,8 @@ string to_mmss(int total){
 
 int main(int argc, char const *argv[])
 {
-	/* code */
-	if (argc != 2)
-	{
+	if (argc != 2) 
+	{	
 		cerr << "usage: lib_info file\n";
 		return 1;
 	}
@@ -91,15 +87,14 @@ int main(int argc, char const *argv[])
 	if (!musicFile.is_open())
 	{		cerr << "Cannot open " << argv[1] << "\n";
 		return 1;
-	}
-
+	}	
+	// Keys drive the ordering: artist and album names sort alphabetically,
+	// track numbers sort numerically. No explicit sorting needed.
 	map<string, Artist> artists;
 
 	string title, time, artist, album, genre;
-	int track;  // numbers value matters to sort correctly that why we can use string for tracks.
-    // loop to read in music library
+	int track;  // int, not string: "10" would sort before "2" alphabetically
 	while (musicFile >> title >> time >> artist >> album >> genre >> track) {
-
 		underscores_to_spaces(title);
 		underscores_to_spaces(artist);
 		underscores_to_spaces(album);
@@ -119,10 +114,13 @@ int main(int argc, char const *argv[])
 		ar.time += seconds;
 		ar.nsongs++;
 
-	}
+	} 
 	musicFile.close();
-    // outputs in the correct format
 
+	// Print the library. Iterating the maps gives the required order for free:
+	// artists and albums alphabetically, songs by track number.
+	// Indentation is exactly 8 spaces for albums and 16 for songs, with no
+	// trailing whitespace -- gradescript compares output character for character.
 	for (map<string, Artist>::iterator it = artists.begin(); it != artists.end(); ++it) {
 		Artist &ar = it->second;
 		cout << it->first << ": " << ar.nsongs << ", " << to_mmss(ar.time) << endl;
@@ -133,7 +131,6 @@ int main(int argc, char const *argv[])
 				<< ", " << to_mmss(al.time) << endl;
 
 			for (map<int, Song>::iterator it3 = al.songs.begin(); it3 != al.songs.end(); ++it3) {
-
 				int trackNo = it3->first;
 				Song &sg = it3->second;
 				cout << "                " << trackNo << ". " << sg.title
@@ -143,3 +140,8 @@ int main(int argc, char const *argv[])
 	}
 	return 0;
 }
+
+
+
+
+
