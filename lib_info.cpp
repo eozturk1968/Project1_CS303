@@ -122,24 +122,26 @@ int main(int argc, char const *argv[])
 	}
 	musicFile.close();
     // outputs in the correct format
+
+	musicFile.close();
+
 	for (map<string, Artist>::iterator it = artists.begin(); it != artists.end(); ++it) {
 		Artist &ar = it->second;
 		cout << it->first << ": " << ar.nsongs << ", " << to_mmss(ar.time) << endl;
-		for (map<string, Album>::iterator it2 = ar.albums.begin(); it2 != ar.albums.end(); ++it2)
-		{
+
+		for (map<string, Album>::iterator it2 = ar.albums.begin(); it2 != ar.albums.end(); ++it2) {
 			Album &al = it2->second;
 			cout << "        " << it2->first << ": " << al.songs.size()
 				<< ", " << to_mmss(al.time) << endl;
-			for (map<int, Song>::iterator it3 = al.songs.begin(); it3 != al.songs.end(); ++it3)
-			{
+
+			for (map<int, Song>::iterator it3 = al.songs.begin(); it3 != al.songs.end(); ++it3) {
+
 				int trackNo = it3->first;
 				Song &sg = it3->second;
-
 				cout << "                " << trackNo << ". " << sg.title
 					<< ": " << to_mmss(sg.time) << endl;
 			}
 		}
 	}
-
 	return 0;
 }
