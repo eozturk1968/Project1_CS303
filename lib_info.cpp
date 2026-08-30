@@ -25,7 +25,7 @@ Displays every artist with their albums and songs
 #include <string>
 // used to read file
 #include <fstream>
-
+// used to control output
 
 using namespace std;
 
@@ -70,7 +70,7 @@ int convertTime(string time) {  // chage it to stdoi
 
 
 
-
+// converts total time in seconds to mins:secs
 string to_mmss(int total){
 	string sec = to_string(total % 60);
 	if (sec.size() == 1) sec = "0" + sec;
@@ -81,8 +81,8 @@ string to_mmss(int total){
 int main(int argc, char const *argv[])
 {
 	/* code */
-	if (argc != 2) 
-	{	
+	if (argc != 2)
+	{
 		cerr << "usage: lib_info file\n";
 		return 1;
 	}
@@ -91,17 +91,15 @@ int main(int argc, char const *argv[])
 	if (!musicFile.is_open())
 	{		cerr << "Cannot open " << argv[1] << "\n";
 		return 1;
-	}	
+	}
 
 	map<string, Artist> artists;
 
 	string title, time, artist, album, genre;
 	int track;  // numbers value matters to sort correctly that why we can use string for tracks.
-
+    // loop to read in music library
 	while (musicFile >> title >> time >> artist >> album >> genre >> track) {
 
-		// TODO
-		// 1. title, artist, album icin underscores_to_spaces cagir
 		underscores_to_spaces(title);
 		underscores_to_spaces(artist);
 		underscores_to_spaces(album);
@@ -121,14 +119,9 @@ int main(int argc, char const *argv[])
 		ar.time += seconds;
 		ar.nsongs++;
 
-		// 2. int seconds = to_seconds(timestr);
-		// 3. Artist &ar = artists[artist];  ar.name = artist;
-		//    Album  &al = ar.albums[album]; al.name = album;
-		// 4. al.songs[track].title = title;  al.songs[track].time = seconds;
-		// 5. al.time += seconds;  ar.time += seconds;  ar.nsongs++;
-	} 
+	}
 	musicFile.close();
-
+    // outputs in the correct format
 	for (map<string, Artist>::iterator it = artists.begin(); it != artists.end(); ++it) {
 		Artist &ar = it->second;
 		cout << it->first << ": " << ar.nsongs << ", " << to_mmss(ar.time) << endl;
@@ -137,7 +130,7 @@ int main(int argc, char const *argv[])
 			Album &al = it2->second;
 			cout << "        " << it2->first << ": " << al.songs.size()
 				<< ", " << to_mmss(al.time) << endl;
-			for (map<int, Song>::iterator it3 = al.songs.begin(); it3 != al.songs.end(); ++it3) 
+			for (map<int, Song>::iterator it3 = al.songs.begin(); it3 != al.songs.end(); ++it3)
 			{
 				int trackNo = it3->first;
 				Song &sg = it3->second;
@@ -150,8 +143,3 @@ int main(int argc, char const *argv[])
 
 	return 0;
 }
-
-
-
-
-
