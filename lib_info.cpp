@@ -123,8 +123,6 @@ int main(int argc, char const *argv[])
 	musicFile.close();
     // outputs in the correct format
 
-	musicFile.close();
-
 	for (map<string, Artist>::iterator it = artists.begin(); it != artists.end(); ++it) {
 		Artist &ar = it->second;
 		cout << it->first << ": " << ar.nsongs << ", " << to_mmss(ar.time) << endl;
